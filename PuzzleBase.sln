@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29503.13
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PuzzleBase.Web", "PuzzleBase.Web\PuzzleBase.Web.csproj", "{9841A4C4-F8EE-4344-A59A-32B720707C23}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PuzzleBase.DAL", "PuzzleBase.DAL\PuzzleBase.DAL.csproj", "{A6455A3C-A412-45E6-8092-61D484E5CB67}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9841A4C4-F8EE-4344-A59A-32B720707C23}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9841A4C4-F8EE-4344-A59A-32B720707C23}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9841A4C4-F8EE-4344-A59A-32B720707C23}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9841A4C4-F8EE-4344-A59A-32B720707C23}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A6455A3C-A412-45E6-8092-61D484E5CB67}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A6455A3C-A412-45E6-8092-61D484E5CB67}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A6455A3C-A412-45E6-8092-61D484E5CB67}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A6455A3C-A412-45E6-8092-61D484E5CB67}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E9A7DB36-D072-4BAF-8134-15E2F4CA5698}
+	EndGlobalSection
+EndGlobal
