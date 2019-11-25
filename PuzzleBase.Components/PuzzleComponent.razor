@@ -12,17 +12,11 @@
                         ? null
                         : Content.Givens.FirstOrDefault(g => g[0] == row && g[1] == column)?[2];
 
-                    var boundary = BoundaryBitmask.None;
-                    if (row % 3 == 1)
-                        boundary |= BoundaryBitmask.North;
-                    else if (row % 3 == 0)
-                        boundary |= BoundaryBitmask.South;
-                    if (column % 3 == 1)
-                        boundary |= BoundaryBitmask.West;
-                    else if (column % 3 == 0)
-                        boundary |= BoundaryBitmask.East;
+                    State.Boxes[row - 1, column - 1].Value = value;
+                    State.Boxes[row - 1, column - 1].IsGiven = value.HasValue;
+                    State.Boxes[row - 1, column - 1].OnValueChanged += Validate;
 
-                    <PuzzleBox Value="value" Boundary="boundary" IsGiven="value.HasValue" />
+                    <PuzzleBox Row="row" Column="column" />
                 }
             </tr>
         }

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using PuzzleBase.Models.State;
 using System;
 
 namespace PuzzleBase.Web
@@ -34,6 +35,8 @@ namespace PuzzleBase.Web
             {
                 pipeline.CompileScssFiles();
             });
+
+            services.AddScoped<SudokuState>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

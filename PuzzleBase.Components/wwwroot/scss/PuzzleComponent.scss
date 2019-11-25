@@ -5,6 +5,7 @@ $box-color: rgb(253, 255, 231);
 $helper-value-color: rgb(96, 96, 96);
 $value-color: rgb(0, 98, 234);
 $given-color: black;
+$conflicted-color: red;
 
 .puzzle {
     position: absolute;
@@ -68,8 +69,19 @@ $given-color: black;
             }
 
             &.given {
+                &:not(.conflicted) {
+                    > .value {
+                        color: $given-color;
+                    }
+                }
+                &.conflicted {
+                    font-weight: bold;
+                }
+            }
+
+            &.conflicted {
                 > .value {
-                    color: $given-color;
+                    color: $conflicted-color;
                 }
             }
 

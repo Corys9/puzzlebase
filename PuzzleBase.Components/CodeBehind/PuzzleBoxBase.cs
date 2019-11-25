@@ -1,12 +1,13 @@
 ﻿using Microsoft.AspNetCore.Components;
 using PuzzleBase.Components.Bitmasks;
+using PuzzleBase.Models.State;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace PuzzleBase.Components.CodeBehind
 {
-    public class PuzzleBoxBase : ComponentBase
+    public class PuzzleBoxBase : ComponentBase, IDisposable
     {
         [Parameter]
         public int Row { get; set; }
@@ -14,18 +15,37 @@ namespace PuzzleBase.Components.CodeBehind
         [Parameter]
         public int Column { get; set; }
 
-        [Parameter]
-        public int? Value { get; set; }
-
-        [Parameter]
-        public bool IsGiven { get; set; }
-
-        [Parameter]
-        public BoundaryBitmask Boundary { get; set; }
+        protected BoundaryBitmask Boundary { get; set; }
 
         protected int? HelperValue { get; set; }
 
         protected int ID => Row * 10 + Column;
+
+        protected int? Value => State.Boxes[Row - 1, Column - 1].Value;
+
+        protected bool IsConflicted => State.Boxes[Row - 1, Column - 1].IsConflicted;
+
+        protected bool IsGiven => State.Boxes[Row - 1, Column - 1].IsGiven;
+
+        [Inject]
+        public SudokuState State { get; private set; }
+
+        protected override void OnInitialized()
+        {
+            Boundary = BoundaryBitmask.None;
+            if (Row % 3 == 1)
+                Boundary |= BoundaryBitmask.North;
+            else if (Row % 3 == 0)
+                Boundary |= BoundaryBitmask.South;
+            if (Column % 3 == 1)
+                Boundary |= BoundaryBitmask.West;
+            else if (Column % 3 == 0)
+                Boundary |= BoundaryBitmask.East;
+
+            State.Boxes[Row - 1, Column - 1].OnStateChanged += base.StateHasChanged;
+
+            base.OnInitialized();
+        }
 
         protected void Helper_MouseOver(int digit)
         {
@@ -45,13 +65,18 @@ namespace PuzzleBase.Components.CodeBehind
 
             if (Value.HasValue)
             {
-                Value = null;
+                State.Boxes[Row - 1, Column - 1].Value = null;
                 Helper_MouseOver(digit);
                 return;
             }
 
-            Value = digit;
             HelperValue = null;
+            State.Boxes[Row - 1, Column - 1].Value = digit;
+        }
+
+        public void Dispose()
+        {
+            State.Boxes[Row - 1, Column - 1].OnStateChanged -= base.StateHasChanged;
         }
     }
 }
