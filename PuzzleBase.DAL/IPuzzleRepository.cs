@@ -1,11 +1,9 @@
-﻿using PuzzleBase.DAL.Models;
-using System;
+﻿using PuzzleBase.Models;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace PuzzleBase.DAL
 {
-    public interface IPuzzleService
+    public interface IPuzzleRepository
     {
         List<Puzzle> GetPuzzleList();
     }

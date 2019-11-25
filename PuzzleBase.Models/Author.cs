@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace PuzzleBase.DAL.Models
+namespace PuzzleBase.Models
 {
     public class Author
     {

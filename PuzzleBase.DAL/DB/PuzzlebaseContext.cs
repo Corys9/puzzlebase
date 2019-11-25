@@ -7,6 +7,7 @@ namespace PuzzleBase.DAL.DB
     public partial class PuzzlebaseContext : DbContext
     {
         public string ConnectionString { get; set; }
+        public static string DefaultConnectionString { get; set; }
 
         public PuzzlebaseContext()
         {
@@ -25,7 +26,7 @@ namespace PuzzleBase.DAL.DB
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
-                optionsBuilder.UseMySql(ConnectionString);
+                optionsBuilder.UseMySql(ConnectionString ?? DefaultConnectionString);
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

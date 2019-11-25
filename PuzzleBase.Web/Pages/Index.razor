@@ -1,3 +1,13 @@
 ﻿@page "/"
+@inherits CodeBehind.IndexBase
 
 <h1>Welcome to PuzzleBase ^^</h1>
+
+@if (Puzzles == null)
+{
+    <img src="~/img/loading.gif" alt="Loading..." />
+}
+else
+{
+    <div>We have @Puzzles.Count puzzle(s).</div>
+}

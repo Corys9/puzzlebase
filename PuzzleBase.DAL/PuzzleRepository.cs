@@ -1,15 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using PuzzleBase.DAL.Models;
+using PuzzleBase.Models;
 
 using Context = PuzzleBase.DAL.DB.PuzzlebaseContext;
 
 namespace PuzzleBase.DAL
 {
-    public class PuzzleService : IPuzzleService
+    public class PuzzleRepository : IPuzzleRepository
     {
         public List<Puzzle> GetPuzzleList()
         {
@@ -30,8 +28,10 @@ namespace PuzzleBase.DAL
                                 : null,
                               Content = null,
                               CreatedTS = p.CreatedTs,
-                              Difficulty = p.Difficulty
+                              Difficulty = p.Difficulty,
+                              IsActive = p.IsActive
                           };
+
             return puzzles.ToList();
         }
     }

@@ -3,9 +3,10 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using PuzzleBase.DAL;
 using System;
 
-namespace PuzzleBase.Web
+namespace PuzzleBase.API
 {
     public class Startup
     {
@@ -18,13 +19,20 @@ namespace PuzzleBase.Web
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddRazorPages();
-            services.AddServerSideBlazor();
+            services.AddControllers();
 
-            services.AddHttpClient("puzzleAPI", options =>
+            services.AddSwaggerGen(options =>
             {
-                options.BaseAddress = new Uri(Configuration.GetValue<string>("ApiUrl"));
+                options.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
+                {
+                    Version = "v1",
+                    Title = "PuzzleBase API",
+                    Description = "PuzzleBase WebAPI"
+                });
             });
+
+            DAL.DB.PuzzlebaseContext.DefaultConnectionString = Configuration.GetConnectionString("PuzzleDB");
+            services.AddScoped<IPuzzleRepository, PuzzleRepository>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -33,21 +41,22 @@ namespace PuzzleBase.Web
             {
                 app.UseDeveloperExceptionPage();
             }
-            else
-            {
-                app.UseExceptionHandler("/Error");
-                app.UseHsts();
-            }
 
             app.UseHttpsRedirection();
-            app.UseStaticFiles();
 
             app.UseRouting();
 
+            app.UseAuthorization();
+            app.UseSwagger();
+            app.UseSwaggerUI(options =>
+            {
+                options.SwaggerEndpoint("/swagger/v1/swagger.json", "PuzzleBase API V1");
+                options.DocumentTitle = "PuzzleBase API";
+            });
+
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapBlazorHub();
-                endpoints.MapFallbackToPage("/_Host");
+                endpoints.MapControllers();
             });
         }
     }

@@ -341,4 +341,4 @@ healthchecksdb
 
 # Sensitive data
 appsettings.json
-appsettings.Development.json
+appsettings.development.json

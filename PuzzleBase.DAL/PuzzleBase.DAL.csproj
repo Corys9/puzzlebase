@@ -17,4 +17,8 @@
     <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="3.0.0-rc3.final" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\PuzzleBase.Models\PuzzleBase.Models.csproj" />
+  </ItemGroup>
+
 </Project>
