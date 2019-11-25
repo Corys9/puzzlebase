@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Text;
 
 namespace PuzzleBase.Models
@@ -8,7 +7,7 @@ namespace PuzzleBase.Models
     {
         public int ID { get; set; }
 
-        public string Content { get; set; }
+        public PuzzleContent Content { get; set; }
 
         public DateTime CreatedTS { get; set; }
 

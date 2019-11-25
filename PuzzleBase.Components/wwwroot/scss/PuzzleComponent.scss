@@ -1,0 +1,27 @@
+﻿$tile-size: 48px;
+$tile-color: rgb(253, 255, 231);
+
+.puzzle {
+    width: calc(#{$tile-size} * 9);
+    height: calc(#{$tile-size} * 9);
+    position: absolute;
+    top: calc(50% - #{$tile-size} * 4.5);
+    left: calc(50% - #{$tile-size} * 4.5);
+    box-shadow: 0 0 5px 1px black;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    user-select: none;
+
+    .box {
+        width: $tile-size;
+        height: $tile-size;
+        background-color: $tile-color;
+        border: 1px solid black;
+        cursor: pointer;
+
+        &:hover {
+            box-shadow: inset 0 0 2px 1px black;
+        }
+    }
+}

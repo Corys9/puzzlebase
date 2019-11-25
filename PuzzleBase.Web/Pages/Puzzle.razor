@@ -1,4 +1,11 @@
 ﻿@page "/puzzle/{ID:int}"
 @inherits CodeBehind.PuzzleBase
 
-Puzzle @ID
+@if (Puzzle == null)
+{
+    <img class="loading-gif" src="img/loading.gif" alt="Loading..." />
+}
+else
+{
+    <PuzzleComponent Content="@Puzzle.Content" />
+}
