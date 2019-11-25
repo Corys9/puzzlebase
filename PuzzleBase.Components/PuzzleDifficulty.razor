@@ -1,0 +1,15 @@
+﻿@inherits CodeBehind.PuzzleDifficultyBase
+
+<div class="difficulty" title="Difficulty: @(Difficulty?.ToString() ?? "N/A")">
+    @if (!Difficulty.HasValue)
+    {
+         <span>N/A</span>
+    }
+    else
+    {
+        @for (var i = 0; i < Difficulty.Value; ++i)
+        {
+            <img src="_content/PuzzleBase.Components/img/difficulty-star.png" alt="*" />
+        }
+    }
+</div>

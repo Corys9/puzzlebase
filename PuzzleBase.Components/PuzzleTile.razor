@@ -2,6 +2,8 @@
 
 <div class="puzzle-tile">
     <div class="title">Puzzle @Puzzle.ID</div>
-    <div class="difficulty">Difficulty: @(Puzzle.Difficulty?.ToString() ?? "N/A")</div>
-    <div class="author">Author: @(Puzzle.Author?.Name ?? "N/A")</div>
+    <div class="content">
+        <PuzzleDifficulty Difficulty="@Puzzle.Difficulty" />
+        <div class="author">Author: @(Puzzle.Author?.Name ?? "N/A")</div>
+    </div>
 </div>

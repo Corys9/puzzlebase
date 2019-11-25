@@ -1,0 +1,58 @@
+﻿$tile-color: rgb(24, 87, 200);
+$title-color: rgb(148, 170, 212);
+$text-color: whitesmoke;
+$highlight-color: rgb(255, 216, 0);
+$border-radius: 10px;
+
+.puzzle-tile {
+    display: flex;
+    flex-direction: column;
+    width: 200px;
+    height: 120px;
+    background-color: $tile-color;
+    border-radius: $border-radius;
+    box-shadow: 0 0 5px 1px black;
+    color: $text-color;
+    cursor: pointer;
+    user-select: none;
+
+    > .title {
+        font-variant: small-caps;
+        background-color: rgba(black, 0.5);
+        color: $title-color;
+        text-align: center;
+        padding: 2px;
+        border-top-left-radius: $border-radius;
+        border-top-right-radius: $border-radius;
+        margin-bottom: 5px;
+    }
+
+    > .content {
+        padding: 5px;
+        display: flex;
+        flex-direction: column;
+
+        > .difficulty {
+            height: 40px;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 5px;
+
+            > img {
+                width: 16px;
+                height: 16px;
+                margin: 2px;
+            }
+        }
+    }
+
+    &:hover {
+        box-shadow: 0 0 5px 1px $highlight-color;
+
+        > .title {
+            color: $highlight-color;
+        }
+    }
+}

@@ -1,6 +1,7 @@
 ﻿@page "/"
 @namespace PuzzleBase.Web.Pages
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@addTagHelper *, WebOptimizer.Core
 
 <!DOCTYPE html>
 <html lang="en">
@@ -10,7 +11,8 @@
     <title>PuzzleBase</title>
     <base href="~/" />
     <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css" />
-    <link href="css/site.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/site.css" />
+    <link rel="stylesheet" href="_content/PuzzleBase.Components/scss/PuzzleTile.scss" />
 </head>
 <body>
     <app>

@@ -25,6 +25,11 @@ namespace PuzzleBase.Web
             {
                 options.BaseAddress = new Uri(Configuration.GetValue<string>("ApiUrl"));
             });
+
+            services.AddWebOptimizer(pipeline =>
+            {
+                pipeline.CompileScssFiles();
+            });
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -40,6 +45,7 @@ namespace PuzzleBase.Web
             }
 
             app.UseHttpsRedirection();
+            app.UseWebOptimizer();
             app.UseStaticFiles();
 
             app.UseRouting();
