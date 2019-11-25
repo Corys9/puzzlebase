@@ -25,6 +25,8 @@ namespace PuzzleBase.Components.CodeBehind
 
         protected bool IsConflicted => State.Boxes[Row - 1, Column - 1].IsConflicted;
 
+        protected bool IsBoundaryConflicted => State.Boxes[Row - 1, Column - 1].IsBoundaryConflicted;
+
         protected bool IsGiven => State.Boxes[Row - 1, Column - 1].IsGiven;
 
         [Inject]

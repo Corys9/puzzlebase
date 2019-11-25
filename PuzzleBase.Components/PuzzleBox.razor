@@ -14,10 +14,11 @@
         ? "boundary-west" : string.Empty;
 
     var conflicted = IsConflicted ? "conflicted" : string.Empty;
+    var boundaryConflicted = IsBoundaryConflicted ? "boundary-conflicted" : string.Empty;
 }
 
 <td>
-    <div class="box @given @boundaryNorth @boundaryEast @boundarySouth @boundaryWest @conflicted" id="box-@ID">
+    <div class="box @given @boundaryNorth @boundaryEast @boundarySouth @boundaryWest @conflicted @boundaryConflicted" id="box-@ID">
         <div class="value">@Value</div>
         <div class="helper-value">@HelperValue</div>
         <div class="helpers">

@@ -15,27 +15,6 @@ namespace PuzzleBase.Components.CodeBehind
         [Inject]
         public SudokuState State { get; set; }
 
-        private List<List<(int Row, int Column)>> Regions { get; set; }
-
-        protected override void OnInitialized()
-        {
-            Regions = new List<List<(int Row, int Column)>>();
-
-            for (var region = 0; region < 9; ++region)
-            {
-                Regions.Add(new List<(int Row, int Column)>());
-
-                for (var counter = 0; counter < 3; ++counter)
-                {
-                    Regions[region].Add((region / 3 * 3 + counter, region % 3 * 3));
-                    Regions[region].Add((region / 3 * 3 + counter, region % 3 * 3 + 1));
-                    Regions[region].Add((region / 3 * 3 + counter, region % 3 * 3 + 2));
-                }
-            }
-
-            base.OnInitialized();
-        }
-
         protected void Validate()
         {
             var isValid = true;
@@ -61,7 +40,10 @@ namespace PuzzleBase.Components.CodeBehind
         {
             for (var row = 0; row < 9; ++row)
                 for (var column = 0; column < 9; ++column)
+                {
                     State.Boxes[row, column].IsConflicted = false;
+                    State.Boxes[row, column].IsBoundaryConflicted = false;
+                }
         }
 
         private bool RowsAreUnique()
@@ -143,11 +125,11 @@ namespace PuzzleBase.Components.CodeBehind
             var duplicatesFound = false;
 
             var seenDigits = new List<(int Row, int Column, int Value)>();
-            var boxesWithDuplicates = new HashSet<(int Row, int Column)>();
+            var regionsWithDuplicates = new HashSet<int>();
 
-            foreach (var region in Regions)
+            for (var i = 0; i < State.Regions.Count; ++i)
             {
-                foreach (var (row, column) in region)
+                foreach (var (row, column) in State.Regions[i])
                 {
                     var currentDigit = State.Boxes[row, column].Value;
 
@@ -158,8 +140,7 @@ namespace PuzzleBase.Components.CodeBehind
                     if (previousCopy != default)
                     {
                         duplicatesFound = true;
-                        boxesWithDuplicates.Add((row, column));
-                        boxesWithDuplicates.Add((previousCopy.Row, previousCopy.Column));
+                        regionsWithDuplicates.Add(i);
                         continue;
                     }
 
@@ -169,8 +150,14 @@ namespace PuzzleBase.Components.CodeBehind
                 seenDigits.Clear();
             }
 
-            foreach (var (row, column) in boxesWithDuplicates)
-                State.Boxes[row, column].IsConflicted = true;
+            foreach (var regionIndex in regionsWithDuplicates)
+                for (var i = 0; i < 9; ++i)
+                {
+                    State.Boxes[
+                        State.Regions[regionIndex][i].Row, 
+                        State.Regions[regionIndex][i].Column
+                    ].IsBoundaryConflicted = true;
+                }
 
             return !duplicatesFound;
         }

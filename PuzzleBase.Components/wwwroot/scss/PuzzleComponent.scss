@@ -74,6 +74,7 @@ $conflicted-color: red;
                         color: $given-color;
                     }
                 }
+
                 &.conflicted {
                     font-weight: bold;
                 }
@@ -99,6 +100,24 @@ $conflicted-color: red;
 
             &.boundary-west {
                 border-left: 2px solid black;
+            }
+
+            &.boundary-conflicted {
+                &.boundary-north {
+                    border-top: 2px solid $conflicted-color;
+                }
+
+                &.boundary-east {
+                    border-right: 2px solid $conflicted-color;
+                }
+
+                &.boundary-south {
+                    border-bottom: 2px solid $conflicted-color;
+                }
+
+                &.boundary-west {
+                    border-left: 2px solid $conflicted-color;
+                }
             }
 
             &:hover {

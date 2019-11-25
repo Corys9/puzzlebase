@@ -8,6 +8,7 @@ namespace PuzzleBase.Models.State
     {
         private int? _value;
         private bool _isConflicted;
+        private bool _isBoundaryConflicted;
         private bool _isGiven;
 
         public int? Value
@@ -26,6 +27,16 @@ namespace PuzzleBase.Models.State
             set
             {
                 _isConflicted = value;
+                StateChanged();
+            }
+        }
+
+        public bool IsBoundaryConflicted
+        {
+            get => _isBoundaryConflicted;
+            set
+            {
+                _isBoundaryConflicted = value;
                 StateChanged();
             }
         }
