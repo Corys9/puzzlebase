@@ -1,9 +1,9 @@
 ﻿@inherits PuzzleBase.Components.CodeBehind.PuzzleTileBase
 
-<div class="puzzle-tile">
+<a class="puzzle-tile" href="puzzle/@Puzzle.ID">
     <div class="title">Puzzle @Puzzle.ID</div>
     <div class="content">
         <PuzzleDifficulty Difficulty="@Puzzle.Difficulty" />
         <div class="author">Author: @(Puzzle.Author?.Name ?? "N/A")</div>
     </div>
-</div>
+</a>

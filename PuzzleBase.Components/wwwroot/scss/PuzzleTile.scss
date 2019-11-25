@@ -15,6 +15,8 @@ $border-radius: 10px;
     color: $text-color;
     cursor: pointer;
     user-select: none;
+    text-decoration: none;
+    transition: transform 0.2s ease;
 
     > .title {
         font-variant: small-caps;
@@ -50,9 +52,17 @@ $border-radius: 10px;
 
     &:hover {
         box-shadow: 0 0 5px 1px $highlight-color;
+        text-decoration: none;
+        transform: scale(1.1);
+        color: $text-color;
 
         > .title {
             color: $highlight-color;
         }
+    }
+
+    &:active {
+        filter: brightness(1.2);
+        text-decoration: none;
     }
 }
