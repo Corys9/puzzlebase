@@ -37,5 +37,21 @@ namespace PuzzleBase.Components.CodeBehind
         {
             HelperValue = null;
         }
+
+        protected void Helper_Click(int digit)
+        {
+            if (IsGiven)
+                return;
+
+            if (Value.HasValue)
+            {
+                Value = null;
+                Helper_MouseOver(digit);
+                return;
+            }
+
+            Value = digit;
+            HelperValue = null;
+        }
     }
 }

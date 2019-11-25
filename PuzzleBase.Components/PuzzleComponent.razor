@@ -22,7 +22,7 @@
                     else if (column % 3 == 0)
                         boundary |= BoundaryBitmask.East;
 
-                    <PuzzleBox Value="@value" Boundary="@boundary" />
+                    <PuzzleBox Value="value" Boundary="boundary" IsGiven="value.HasValue" />
                 }
             </tr>
         }

@@ -1,8 +1,10 @@
 ﻿$box-size: calc(100vw / 27);
 $box-min-size: 48px;
 $box-color: rgb(253, 255, 231);
+
 $helper-value-color: rgb(96, 96, 96);
 $value-color: rgb(0, 98, 234);
+$given-color: black;
 
 .puzzle {
     position: absolute;
@@ -41,6 +43,10 @@ $value-color: rgb(0, 98, 234);
                 line-height: $box-size;
             }
 
+            > .value {
+                color: $value-color;
+            }
+
             > .helper-value {
                 color: $helper-value-color;
             }
@@ -58,6 +64,12 @@ $value-color: rgb(0, 98, 234);
                 > .helper {
                     width: calc(#{$box-size} / 3 - 1px);
                     height: calc(#{$box-size} / 3 - 1px);
+                }
+            }
+
+            &.given {
+                > .value {
+                    color: $given-color;
                 }
             }
 
