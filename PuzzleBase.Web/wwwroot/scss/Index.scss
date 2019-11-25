@@ -3,3 +3,12 @@
     top: 50%;
     left: 50%;
 }
+
+.index-page {
+    > .title {
+        font-size: 36px;
+        font-variant: small-caps;
+        font-family: Cambria;
+        margin-bottom: 100px;
+    }
+}

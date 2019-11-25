@@ -1,16 +1,18 @@
 ﻿@page "/"
 @inherits CodeBehind.IndexBase
 
-<h1>Welcome to PuzzleBase ^^</h1>
+<div class="index-page">
+    <div class="title">Welcome to PuzzleBase ^^</div>
 
-@if (Puzzles == null)
-{
-    <img class="loading-gif" src="img/loading.gif" alt="Loading..." />
-}
-else
-{
-    foreach (var puzzle in Puzzles)
+    @if (Puzzles == null)
     {
-        <PuzzleTile Puzzle="@puzzle" />
+        <img class="loading-gif" src="img/loading.gif" alt="Loading..." />
     }
-}
+    else
+    {
+        foreach (var puzzle in Puzzles)
+        {
+            <PuzzleTile Puzzle="@puzzle" />
+        }
+    }
+</div>

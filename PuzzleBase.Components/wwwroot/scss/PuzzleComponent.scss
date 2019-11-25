@@ -1,27 +1,63 @@
-﻿$tile-size: 48px;
+﻿$tile-size: calc(100vw / 27);
+$tile-min-size: 48px;
 $tile-color: rgb(253, 255, 231);
 
 .puzzle {
-    width: calc(#{$tile-size} * 9);
-    height: calc(#{$tile-size} * 9);
     position: absolute;
     top: calc(50% - #{$tile-size} * 4.5);
     left: calc(50% - #{$tile-size} * 4.5);
+    border: 2px solid black;
     box-shadow: 0 0 5px 1px black;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
     user-select: none;
 
-    .box {
+    td {
+        padding: 0;
+        margin: 0;
         width: $tile-size;
         height: $tile-size;
-        background-color: $tile-color;
-        border: 1px solid black;
-        cursor: pointer;
+        min-width: $tile-min-size;
+        min-height: $tile-min-size;
 
-        &:hover {
-            box-shadow: inset 0 0 2px 1px black;
+        > .box {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            background-color: $tile-color;
+            border: 1px solid black;
+            cursor: pointer;
+            transition: filter 0.1s ease, box-shadow 0.1s ease;
+
+            > .value {
+                font-size: calc(#{$tile-size} * 0.75);
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                text-align: center;
+                line-height: $tile-size;
+            }
+
+            &.boundary-north {
+                border-top: 2px solid black;
+            }
+
+            &.boundary-east {
+                border-right: 2px solid black;
+            }
+
+            &.boundary-south {
+                border-bottom: 2px solid black;
+            }
+
+            &.boundary-west {
+                border-left: 2px solid black;
+            }
+
+            &:hover {
+                filter: brightness(1.25);
+                box-shadow: inset 0 0 2px 1px black;
+            }
         }
     }
 }

@@ -1,5 +1,22 @@
 ﻿@inherits CodeBehind.PuzzleBoxBase
+@using Bitmasks
 
-<div class="box" id="box-@ID">
+@{
+    var given = IsGiven ? "given" : string.Empty;
 
-</div>
+    var boundaryNorth = (Boundary & BoundaryBitmask.North) != BoundaryBitmask.None
+        ? "boundary-north" : string.Empty;
+    var boundaryEast = (Boundary & BoundaryBitmask.East) != BoundaryBitmask.None
+        ? "boundary-east" : string.Empty;
+    var boundarySouth = (Boundary & BoundaryBitmask.South) != BoundaryBitmask.None
+        ? "boundary-south" : string.Empty;
+    var boundaryWest = (Boundary & BoundaryBitmask.West) != BoundaryBitmask.None
+        ? "boundary-west" : string.Empty;
+    
+}
+
+<td>
+    <div class="box @given @boundaryNorth @boundaryEast @boundarySouth @boundaryWest" id="box-@ID">
+        <div class="value">@Value</div>
+    </div>
+</td>

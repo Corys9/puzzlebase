@@ -1,9 +1,30 @@
 ﻿@inherits PuzzleBase.Components.CodeBehind.PuzzleComponentBase
+@using PuzzleBase.Components.Bitmasks
 
-<div class="puzzle">
-    @for (var row = 1; row <= 9; ++row)
-    for (var column = 1; column <= 9; ++column)
-    {
-        <PuzzleBox />
-    }
-</div>
+<table class="puzzle">
+    <tbody>
+        @for (var row = 1; row <= 9; ++row)
+        {
+            <tr>
+                @for (var column = 1; column <= 9; ++column)
+                {
+                    int? value = Content.Givens == null
+                        ? null
+                        : Content.Givens.FirstOrDefault(g => g[0] == row && g[1] == column)?[2];
+
+                    var boundary = BoundaryBitmask.None;
+                    if (row % 3 == 1)
+                        boundary |= BoundaryBitmask.North;
+                    else if (row % 3 == 0)
+                        boundary |= BoundaryBitmask.South;
+                    if (column % 3 == 1)
+                        boundary |= BoundaryBitmask.West;
+                    else if (column % 3 == 0)
+                        boundary |= BoundaryBitmask.East;
+
+                    <PuzzleBox Value="@value" Boundary="@boundary" />
+                }
+            </tr>
+        }
+    </tbody>
+</table>
