@@ -1,5 +1,6 @@
 ﻿@page "/"
 @inherits CodeBehind.IndexBase
+@using PuzzleBase.Components
 
 <h1>Welcome to PuzzleBase ^^</h1>
 
@@ -9,5 +10,8 @@
 }
 else
 {
-    <div>We have @Puzzles.Count puzzle(s).</div>
+    foreach (var puzzle in Puzzles)
+    {
+        <PuzzleTile Puzzle="@puzzle" />
+    }
 }

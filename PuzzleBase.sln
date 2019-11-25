@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PuzzleBase.API", "PuzzleBas
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PuzzleBase.Models", "PuzzleBase.Models\PuzzleBase.Models.csproj", "{B0E3D1F6-3CD1-4312-B4DF-6CDF23B28585}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PuzzleBase.Components", "PuzzleBase.Components\PuzzleBase.Components.csproj", "{20159B50-BA0F-4B4F-B58F-E4BCE13C43AD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{B0E3D1F6-3CD1-4312-B4DF-6CDF23B28585}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B0E3D1F6-3CD1-4312-B4DF-6CDF23B28585}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B0E3D1F6-3CD1-4312-B4DF-6CDF23B28585}.Release|Any CPU.Build.0 = Release|Any CPU
+		{20159B50-BA0F-4B4F-B58F-E4BCE13C43AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{20159B50-BA0F-4B4F-B58F-E4BCE13C43AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{20159B50-BA0F-4B4F-B58F-E4BCE13C43AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{20159B50-BA0F-4B4F-B58F-E4BCE13C43AD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

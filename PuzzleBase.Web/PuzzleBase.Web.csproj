@@ -13,6 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\PuzzleBase.Components\PuzzleBase.Components.csproj" />
     <ProjectReference Include="..\PuzzleBase.Models\PuzzleBase.Models.csproj" />
   </ItemGroup>
 
