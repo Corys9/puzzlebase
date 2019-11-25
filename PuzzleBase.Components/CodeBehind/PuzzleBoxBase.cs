@@ -23,6 +23,19 @@ namespace PuzzleBase.Components.CodeBehind
         [Parameter]
         public BoundaryBitmask Boundary { get; set; }
 
+        protected int? HelperValue { get; set; }
+
         protected int ID => Row * 10 + Column;
+
+        protected void Helper_MouseOver(int digit)
+        {
+            if (!Value.HasValue)
+                HelperValue = digit;
+        }
+
+        protected void Helper_MouseOut()
+        {
+            HelperValue = null;
+        }
     }
 }

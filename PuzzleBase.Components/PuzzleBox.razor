@@ -12,11 +12,21 @@
         ? "boundary-south" : string.Empty;
     var boundaryWest = (Boundary & BoundaryBitmask.West) != BoundaryBitmask.None
         ? "boundary-west" : string.Empty;
-    
 }
 
 <td>
     <div class="box @given @boundaryNorth @boundaryEast @boundarySouth @boundaryWest" id="box-@ID">
         <div class="value">@Value</div>
+        <div class="helper-value">@HelperValue</div>
+        <div class="helpers">
+            @for (var i = 1; i <= 9; ++i)
+            {
+                var digit = i;
+
+                <div class="helper" id="helper-@i"
+                     @onmouseover="() => Helper_MouseOver(digit)"
+                     @onmouseout="Helper_MouseOut"></div>
+            }
+        </div>
     </div>
 </td>

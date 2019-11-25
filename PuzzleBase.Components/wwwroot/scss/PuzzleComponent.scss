@@ -1,11 +1,13 @@
-﻿$tile-size: calc(100vw / 27);
-$tile-min-size: 48px;
-$tile-color: rgb(253, 255, 231);
+﻿$box-size: calc(100vw / 27);
+$box-min-size: 48px;
+$box-color: rgb(253, 255, 231);
+$helper-value-color: rgb(96, 96, 96);
+$value-color: rgb(0, 98, 234);
 
 .puzzle {
     position: absolute;
-    top: calc(50% - #{$tile-size} * 4.5);
-    left: calc(50% - #{$tile-size} * 4.5);
+    top: calc(50% - #{$box-size} * 4.5);
+    left: calc(50% - #{$box-size} * 4.5);
     border: 2px solid black;
     box-shadow: 0 0 5px 1px black;
     user-select: none;
@@ -13,29 +15,50 @@ $tile-color: rgb(253, 255, 231);
     td {
         padding: 0;
         margin: 0;
-        width: $tile-size;
-        height: $tile-size;
-        min-width: $tile-min-size;
-        min-height: $tile-min-size;
+        width: $box-size;
+        height: $box-size;
+        min-width: $box-min-size;
+        min-height: $box-min-size;
 
         > .box {
             width: 100%;
             height: 100%;
             position: relative;
-            background-color: $tile-color;
+            background-color: $box-color;
             border: 1px solid black;
             cursor: pointer;
             transition: filter 0.1s ease, box-shadow 0.1s ease;
 
-            > .value {
-                font-size: calc(#{$tile-size} * 0.75);
+            > .value,
+            > .helper-value {
+                font-size: calc(#{$box-size} * 0.75);
                 position: absolute;
                 top: 0;
                 left: 0;
                 width: 100%;
                 height: 100%;
                 text-align: center;
-                line-height: $tile-size;
+                line-height: $box-size;
+            }
+
+            > .helper-value {
+                color: $helper-value-color;
+            }
+
+            > .helpers {
+                display: flex;
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                flex-direction: row;
+                flex-wrap: wrap;
+
+                > .helper {
+                    width: calc(#{$box-size} / 3 - 1px);
+                    height: calc(#{$box-size} / 3 - 1px);
+                }
             }
 
             &.boundary-north {
