@@ -8,13 +8,9 @@ namespace PuzzleBase.Models.JsonHelpers
 {
     public class PuzzleConstraintConverter : JsonConverter
     {
-        static readonly JsonSerializerSettings SpecifiedSubclassConversion = new JsonSerializerSettings
-        {
-            ContractResolver = new PuzzleConstraintResolver()
-        };
-
         public override bool CanConvert(Type objectType)
         {
+            // subclasses should not use this converter
             return objectType == typeof(PuzzleConstraint);
         }
 
@@ -22,22 +18,39 @@ namespace PuzzleBase.Models.JsonHelpers
         {
             var jObject = JObject.Load(reader);
 
-            return jObject["type"].Value<string>() switch
+            var type = jObject["type"].Value<string>() switch
             {
-                "anti-knight" => JsonConvert.DeserializeObject<AntiKnightConstraint>(jObject.ToString(), SpecifiedSubclassConversion),
-                "diagonal" => JsonConvert.DeserializeObject<DiagonalConstraint>(jObject.ToString(), SpecifiedSubclassConversion),
-                "jigsaw" => JsonConvert.DeserializeObject<JigsawConstraint>(jObject.ToString(), SpecifiedSubclassConversion),
-                "killer" => JsonConvert.DeserializeObject<KillerConstraint>(jObject.ToString(), SpecifiedSubclassConversion),
-                "sandwich" => JsonConvert.DeserializeObject<SandwichConstraint>(jObject.ToString(), SpecifiedSubclassConversion),
-                "skyscraper" => JsonConvert.DeserializeObject<SkyscraperConstraint>(jObject.ToString(), SpecifiedSubclassConversion),
-                "thermo" => JsonConvert.DeserializeObject<ThermoConstraint>(jObject.ToString(), SpecifiedSubclassConversion),
+                "anti-knight" => typeof(AntiKnightConstraint),
+                "diagonal" => typeof(DiagonalConstraint),
+                "jigsaw" => typeof(JigsawConstraint),
+                "killer" => typeof(KillerConstraint),
+                "sandwich" => typeof(SandwichConstraint),
+                "skyscraper" => typeof(SkyscraperConstraint),
+                "thermo" => typeof(ThermoConstraint),
                 _ => throw new Exception("Unknown constraint type."),
             };
+
+            // avoid infinite recursion
+            var contract = serializer.ContractResolver.ResolveContract(type);
+            if (contract.Converter != null &&
+                !contract.Converter.GetType().IsAbstract &&
+                contract.Converter.GetType() == GetType())
+            {
+                contract.Converter = null;
+            }
+         
+            var jTokenReader = new JTokenReader(jObject);
+            var result = serializer.Deserialize(jTokenReader, type);
+
+            return result;
         }
+
+        public override bool CanWrite => false;
 
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
-            serializer.Serialize(writer, value);
+            // this converter should never write, it's only used for deserialization of abstract PuzzleConstraint class
+            throw new NotImplementedException();
         }
     }
 }

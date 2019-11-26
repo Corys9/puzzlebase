@@ -44,7 +44,28 @@ namespace PuzzleBase.Models.JsonHelpers
 
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
-            serializer.Serialize(writer, value);
+            var thermos = JArray.FromObject(value);
+
+            writer.WriteStartArray();
+
+            foreach (JArray thermo in thermos)
+            {
+                writer.WriteStartArray();
+
+                for (int i = 0; i < thermo.Count; i++)
+                {
+                    var thermoElement = thermo[i] as JObject;
+                    writer.WriteStartArray();
+                    writer.WriteValue(thermoElement["Item1"].Value<int>());
+                    writer.WriteValue(thermoElement["Item2"].Value<int>());
+                    writer.WriteValue(thermoElement["Item3"].Value<string>());
+                    writer.WriteEndArray();
+                }
+
+                writer.WriteEndArray();
+            }
+
+            writer.WriteEndArray();
         }
     }
 }

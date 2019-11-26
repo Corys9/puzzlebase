@@ -53,12 +53,7 @@ namespace PuzzleBase.DAL
                                     WebSite = p.Author.WebSite
                                 }
                                 : null,
-                             Content = JsonConvert.DeserializeObject<PuzzleContent>(
-                                 p.Content,
-                                 new JsonSerializerSettings
-                                 {
-                                     TypeNameHandling = TypeNameHandling.Auto
-                                 }),
+                             Content = JsonConvert.DeserializeObject<PuzzleContent>(p.Content),
                              CreatedTS = p.CreatedTs,
                              Difficulty = p.Difficulty,
                              IsActive = p.IsActive

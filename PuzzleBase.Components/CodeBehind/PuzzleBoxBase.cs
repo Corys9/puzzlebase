@@ -78,7 +78,14 @@ namespace PuzzleBase.Components.CodeBehind
 
         public void Dispose()
         {
-            State.Boxes[Row - 1, Column - 1].OnStateChanged -= base.StateHasChanged;
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposeManagedResources)
+        {
+            if (disposeManagedResources)
+                State.Boxes[Row - 1, Column - 1].OnStateChanged -= base.StateHasChanged;
         }
     }
 }

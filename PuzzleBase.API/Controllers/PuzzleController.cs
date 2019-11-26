@@ -11,20 +11,14 @@ namespace PuzzleBase.API.Controllers
     {
         private readonly IPuzzleRepository PuzzleRepository;
 
-        public PuzzleController(IPuzzleRepository puzzleRepository)
-        {
-            PuzzleRepository = puzzleRepository;
-        }
+        public PuzzleController(IPuzzleRepository puzzleRepository) => PuzzleRepository = puzzleRepository;
 
         /// <summary>
         /// Fetch the list of puzzles without content.
         /// </summary>
         /// <returns>List of puzzles</returns>
         [HttpGet]
-        public List<Puzzle> GetPuzzles()
-        {
-            return PuzzleRepository.GetPuzzleList();
-        }
+        public List<Puzzle> GetPuzzles() => PuzzleRepository.GetPuzzleList();
 
         /// <summary>
         /// Fetch a puzzle by ID.
@@ -32,9 +26,6 @@ namespace PuzzleBase.API.Controllers
         /// <param name="puzzleID">Puzzle ID</param>
         /// <returns>Puzzle object</returns>
         [HttpGet, Route("{puzzleID:int}")]
-        public Puzzle GetPuzzleByID(int puzzleID)
-        {
-            return PuzzleRepository.GetPuzzleByID(puzzleID);
-        }
+        public Puzzle GetPuzzleByID(int puzzleID) => PuzzleRepository.GetPuzzleByID(puzzleID);
     }
 }

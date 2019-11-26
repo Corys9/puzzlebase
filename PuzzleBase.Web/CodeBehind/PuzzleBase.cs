@@ -32,16 +32,69 @@ namespace PuzzleBase.Web.CodeBehind
             var puzzleJson = await http.GetStringAsync($"api/puzzle/{ID}");
             Puzzle = JsonConvert.DeserializeObject<Puzzle>(puzzleJson);
 
+            InitState();
+        }
+
+        private void InitState()
+        {
+            State.Boxes = new BoxState[9, 9];
             for (var row = 0; row < 9; ++row)
                 for (var column = 0; column < 9; ++column)
                 {
                     var value = Puzzle.Content.Givens?
                         .FirstOrDefault(g => g[0] == row + 1 && g[1] == column + 1)?[2];
 
-                    State.Boxes[row, column].Value = value;
-                    State.Boxes[row, column].IsGiven = value.HasValue;
+                    State.Boxes[row, column] = new BoxState
+                    {
+                        Value = value,
+                        IsGiven = value.HasValue
+                    };
                     State.Boxes[row, column].OnValueChanged += Validate;
                 }
+
+            State.Regions = new List<List<(int Row, int Column)>>();
+            for (var region = 0; region < 9; ++region)
+            {
+                State.Regions.Add(new List<(int Row, int Column)>());
+
+                for (var counter = 0; counter < 3; ++counter)
+                {
+                    State.Regions[region].Add((region / 3 * 3 + counter, region % 3 * 3));
+                    State.Regions[region].Add((region / 3 * 3 + counter, region % 3 * 3 + 1));
+                    State.Regions[region].Add((region / 3 * 3 + counter, region % 3 * 3 + 2));
+                }
+            }
+
+            if (Puzzle.Content.Constraints == null)
+                return;
+
+            if (Puzzle.Content.Constraints
+                .FirstOrDefault(c => c.GetType() == typeof(ThermoConstraint))
+                is ThermoConstraint thermoConstraint &&
+                thermoConstraint.Thermos != null)
+            {
+                State.Thermos = new List<List<ThermoState>>();
+
+                foreach (var thermo in thermoConstraint.Thermos)
+                {
+                    var thermoStates = new List<ThermoState>();
+
+                    for (int i = 0; i < thermo.Count; i++)
+                    {
+                        var thermoElement = thermo[i];
+                        var thermoState = new ThermoState
+                        {
+                            Row = thermoElement.Row,
+                            Column = thermoElement.Column,
+                            Type = thermoElement.Type,
+                            IsBulb = i == 0
+                        };
+                        thermoStates.Add(thermoState);
+                    }
+
+                    State.Thermos.Add(thermoStates);
+                }
+            }
         }
 
         protected void Validate()
