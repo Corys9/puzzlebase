@@ -21,7 +21,8 @@
     <div class="box
          @given
          @boundaryNorth @boundaryEast @boundarySouth @boundaryWest
-         @boundaryConflicted @conflicted" id="box-@ID">
+         @boundaryConflicted @conflicted" id="box-@ID"
+         @onkeypress="(e) => Box_KeyPress(e)" tabindex="0">
         <div class="value">@Value</div>
         <div class="helper-value">@HelperValue</div>
         <table class="helpers">

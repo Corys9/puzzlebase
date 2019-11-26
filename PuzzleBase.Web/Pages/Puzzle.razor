@@ -9,3 +9,8 @@ else
 {
     <PuzzleComponent />
 }
+
+@if (IsCompleted)
+{
+    <PuzzleOverlay Message="Congratulations!" />
+}

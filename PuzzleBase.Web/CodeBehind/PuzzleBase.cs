@@ -17,6 +17,8 @@ namespace PuzzleBase.Web.CodeBehind
 
         protected Puzzle Puzzle { get; set; }
 
+        protected bool IsCompleted { get; set; }
+
         [Inject]
         public IHttpClientFactory ClientFactory { get; private set; }
 
@@ -115,7 +117,9 @@ namespace PuzzleBase.Web.CodeBehind
             if (!isValid)
                 return;
 
-            // TODO: check if it's completed
+            IsCompleted = PuzzleIsFull();
+            if (IsCompleted)
+                StateHasChanged();
         }
 
         private void ResetValidation()
@@ -248,6 +252,18 @@ namespace PuzzleBase.Web.CodeBehind
                 State.Boxes[row, column].IsConflicted = true;
 
             return !duplicatesFound;
+        }
+
+        private bool PuzzleIsFull()
+        {
+            for (var row = 0; row < 9; ++row)
+                for (var column = 0; column < 9; ++column)
+                {
+                    if (!State.Boxes[row, column].Value.HasValue)
+                        return false;
+                }
+
+            return true;
         }
     }
 }

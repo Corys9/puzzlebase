@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
 using PuzzleBase.Components.Bitmasks;
 using PuzzleBase.Models.State;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace PuzzleBase.Components.CodeBehind
 {
@@ -53,11 +55,16 @@ namespace PuzzleBase.Components.CodeBehind
         {
             if (!Value.HasValue)
                 HelperValue = digit;
+
+            State.ActiveBox = (Row, Column);
         }
 
         protected void Helper_MouseOut()
         {
             HelperValue = null;
+
+            if (State.ActiveBox == (Row, Column))
+                State.ActiveBox = null;
         }
 
         protected void Helper_Click(int digit)
@@ -74,6 +81,12 @@ namespace PuzzleBase.Components.CodeBehind
 
             HelperValue = null;
             State.Boxes[Row - 1, Column - 1].Value = digit;
+        }
+
+        public void Box_KeyPress(KeyboardEventArgs e)
+        {
+            if (char.IsDigit(e.Key, 0) && e.Key != "0")
+                Helper_Click(int.Parse(e.Key));
         }
 
         public void Dispose()

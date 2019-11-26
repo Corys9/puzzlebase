@@ -11,5 +11,7 @@ namespace PuzzleBase.Models.State
         public List<List<(int Row, int Column)>> Regions { get; set; }
 
         public List<List<ThermoState>> Thermos { get; set; }
+
+        public (int Row, int Column)? ActiveBox { get; set; }
     }
 }
