@@ -7,11 +7,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PuzzleBase.Web", "PuzzleBas
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PuzzleBase.DAL", "PuzzleBase.DAL\PuzzleBase.DAL.csproj", "{A6455A3C-A412-45E6-8092-61D484E5CB67}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PuzzleBase.API", "PuzzleBase.API\PuzzleBase.API.csproj", "{C3FB7CEB-A5EB-41C8-98A4-4EBC5D117E97}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PuzzleBase.API", "PuzzleBase.API\PuzzleBase.API.csproj", "{C3FB7CEB-A5EB-41C8-98A4-4EBC5D117E97}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PuzzleBase.Models", "PuzzleBase.Models\PuzzleBase.Models.csproj", "{B0E3D1F6-3CD1-4312-B4DF-6CDF23B28585}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PuzzleBase.Models", "PuzzleBase.Models\PuzzleBase.Models.csproj", "{B0E3D1F6-3CD1-4312-B4DF-6CDF23B28585}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PuzzleBase.Components", "PuzzleBase.Components\PuzzleBase.Components.csproj", "{20159B50-BA0F-4B4F-B58F-E4BCE13C43AD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PuzzleBase.Components", "PuzzleBase.Components\PuzzleBase.Components.csproj", "{20159B50-BA0F-4B4F-B58F-E4BCE13C43AD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

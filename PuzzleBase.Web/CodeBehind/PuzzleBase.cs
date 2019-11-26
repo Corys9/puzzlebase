@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Newtonsoft.Json;
 using PuzzleBase.Models;
 using System;
 using System.Collections.Generic;
@@ -21,7 +22,8 @@ namespace PuzzleBase.Web.CodeBehind
         public async Task FetchPuzzle()
         {
             var http = ClientFactory.CreateClient("puzzleAPI");
-            Puzzle = await http.GetJsonAsync<Puzzle>($"api/puzzle/{ID}");
+            var puzzleJson = await http.GetStringAsync($"api/puzzle/{ID}");
+            Puzzle = JsonConvert.DeserializeObject<Puzzle>(puzzleJson);
         }
 
         protected override async Task OnInitializedAsync() =>

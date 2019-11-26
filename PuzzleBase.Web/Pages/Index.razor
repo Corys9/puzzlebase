@@ -10,9 +10,11 @@
     }
     else
     {
-        foreach (var puzzle in Puzzles)
-        {
-            <PuzzleTile Puzzle="@puzzle" />
-        }
+        <div class="puzzles">
+            @foreach (var puzzle in Puzzles)
+            {
+                <PuzzleTile Puzzle="@puzzle" />
+            }
+        </div>
     }
 </div>
