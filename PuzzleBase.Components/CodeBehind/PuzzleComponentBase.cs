@@ -126,6 +126,7 @@ namespace PuzzleBase.Components.CodeBehind
 
             var seenDigits = new List<(int Row, int Column, int Value)>();
             var regionsWithDuplicates = new HashSet<int>();
+            var boxesWithDuplicates = new HashSet<(int Row, int Column)>();
 
             for (var i = 0; i < State.Regions.Count; ++i)
             {
@@ -141,6 +142,8 @@ namespace PuzzleBase.Components.CodeBehind
                     {
                         duplicatesFound = true;
                         regionsWithDuplicates.Add(i);
+                        boxesWithDuplicates.Add((row, column));
+                        boxesWithDuplicates.Add((previousCopy.Row, previousCopy.Column));
                         continue;
                     }
 
@@ -158,6 +161,9 @@ namespace PuzzleBase.Components.CodeBehind
                         State.Regions[regionIndex][i].Column
                     ].IsBoundaryConflicted = true;
                 }
+
+            foreach (var (row, column) in boxesWithDuplicates)
+                State.Boxes[row, column].IsConflicted = true;
 
             return !duplicatesFound;
         }
