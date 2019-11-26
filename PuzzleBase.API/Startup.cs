@@ -33,8 +33,7 @@ namespace PuzzleBase.API
                 options.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
                 {
                     Version = "v1",
-                    Title = "PuzzleBase API",
-                    Description = "PuzzleBase WebAPI"
+                    Title = "PuzzleBase API"
                 });
             });
 
