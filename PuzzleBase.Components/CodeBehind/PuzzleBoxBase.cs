@@ -4,6 +4,7 @@ using PuzzleBase.Components.Bitmasks;
 using PuzzleBase.Models.State;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -36,19 +37,26 @@ namespace PuzzleBase.Components.CodeBehind
 
         protected override void OnInitialized()
         {
+            ConstructRegionBoundaries();
+
+            base.OnInitialized();
+        }
+
+        private void ConstructRegionBoundaries()
+        {
+            var region = State.Regions.FirstOrDefault(r => r.Contains((Row - 1, Column - 1)));
+
             Boundary = BoundaryBitmask.None;
-            if (Row % 3 == 1)
+            if (Row == 1 || !region.Contains((Row - 2, Column - 1)))
                 Boundary |= BoundaryBitmask.North;
-            else if (Row % 3 == 0)
+            if (Row == 9 || !region.Contains((Row, Column - 1)))
                 Boundary |= BoundaryBitmask.South;
-            if (Column % 3 == 1)
+            if (Column == 1 || !region.Contains((Row - 1, Column - 2)))
                 Boundary |= BoundaryBitmask.West;
-            else if (Column % 3 == 0)
+            if (Column == 9 || !region.Contains((Row - 1, Column)))
                 Boundary |= BoundaryBitmask.East;
 
             State.Boxes[Row - 1, Column - 1].OnStateChanged += base.StateHasChanged;
-
-            base.OnInitialized();
         }
 
         protected void Helper_MouseOver(int digit)

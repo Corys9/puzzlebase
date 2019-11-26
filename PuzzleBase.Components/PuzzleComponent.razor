@@ -1,15 +1,17 @@
 ﻿@inherits PuzzleBase.Components.CodeBehind.PuzzleComponentBase
 
-<table class="puzzle">
-    <tbody>
-        @for (var row = 1; row <= 9; ++row)
-        {
-            <tr>
-                @for (var column = 1; column <= 9; ++column)
-                {
-                    <PuzzleBox Row="row" Column="column" />
-                }
-            </tr>
-        }
-    </tbody>
-</table>
+<div class="puzzle">
+    <table class="puzzle-table">
+        <tbody>
+            @for (var row = 1; row <= 9; ++row)
+            {
+                <tr>
+                    @for (var column = 1; column <= 9; ++column)
+                    {
+                        <PuzzleBox Row="row" Column="column" />
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

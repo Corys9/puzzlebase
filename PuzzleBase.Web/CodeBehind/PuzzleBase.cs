@@ -55,15 +55,32 @@ namespace PuzzleBase.Web.CodeBehind
                 }
 
             State.Regions = new List<List<(int Row, int Column)>>();
-            for (var region = 0; region < 9; ++region)
+            if (Puzzle.Content.Constraints != null &&
+                Puzzle.Content.Constraints
+                    .FirstOrDefault(c => c.GetType() == typeof(JigsawConstraint))
+                    is JigsawConstraint jigsawConstraint &&
+                jigsawConstraint.Regions != null)
             {
-                State.Regions.Add(new List<(int Row, int Column)>());
-
-                for (var counter = 0; counter < 3; ++counter)
+                for (var region = 0; region < jigsawConstraint.Regions.Count; region++)
                 {
-                    State.Regions[region].Add((region / 3 * 3 + counter, region % 3 * 3));
-                    State.Regions[region].Add((region / 3 * 3 + counter, region % 3 * 3 + 1));
-                    State.Regions[region].Add((region / 3 * 3 + counter, region % 3 * 3 + 2));
+                    State.Regions.Add(new List<(int Row, int Column)>());
+
+                    foreach (var box in jigsawConstraint.Regions[region])
+                        State.Regions[region].Add((box / 10 - 1, box % 10 - 1));
+                }
+            }
+            else // default regions
+            {
+                for (var region = 0; region < 9; ++region)
+                {
+                    State.Regions.Add(new List<(int Row, int Column)>());
+
+                    for (var counter = 0; counter < 3; ++counter)
+                    {
+                        State.Regions[region].Add((region / 3 * 3 + counter, region % 3 * 3));
+                        State.Regions[region].Add((region / 3 * 3 + counter, region % 3 * 3 + 1));
+                        State.Regions[region].Add((region / 3 * 3 + counter, region % 3 * 3 + 2));
+                    }
                 }
             }
 
