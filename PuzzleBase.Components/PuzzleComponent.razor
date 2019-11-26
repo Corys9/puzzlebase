@@ -1,5 +1,4 @@
 ﻿@inherits PuzzleBase.Components.CodeBehind.PuzzleComponentBase
-@using PuzzleBase.Components.Bitmasks
 
 <table class="puzzle">
     <tbody>
@@ -8,14 +7,6 @@
             <tr>
                 @for (var column = 1; column <= 9; ++column)
                 {
-                    int? value = Content.Givens == null
-                        ? null
-                        : Content.Givens.FirstOrDefault(g => g[0] == row && g[1] == column)?[2];
-
-                    State.Boxes[row - 1, column - 1].Value = value;
-                    State.Boxes[row - 1, column - 1].IsGiven = value.HasValue;
-                    State.Boxes[row - 1, column - 1].OnValueChanged += Validate;
-
                     <PuzzleBox Row="row" Column="column" />
                 }
             </tr>
