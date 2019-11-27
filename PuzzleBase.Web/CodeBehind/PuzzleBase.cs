@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using PuzzleBase.Models;
 using PuzzleBase.Models.State;
+using PuzzleBase.Web.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -88,8 +89,8 @@ namespace PuzzleBase.Web.CodeBehind
                 return;
 
             if (Puzzle.Content.Constraints
-                .FirstOrDefault(c => c.GetType() == typeof(ThermoConstraint))
-                is ThermoConstraint thermoConstraint &&
+                    .FirstOrDefault(c => c.GetType() == typeof(ThermoConstraint))
+                    is ThermoConstraint thermoConstraint &&
                 thermoConstraint.Thermos != null)
             {
                 State.Thermos = new List<List<ThermoState>>();
@@ -98,7 +99,7 @@ namespace PuzzleBase.Web.CodeBehind
                 {
                     var thermoStates = new List<ThermoState>();
 
-                    for (int i = 0; i < thermo.Count; i++)
+                    for (var i = 0; i < thermo.Count; ++i)
                     {
                         var thermoElement = thermo[i];
                         var thermoState = new ThermoState
@@ -112,6 +113,24 @@ namespace PuzzleBase.Web.CodeBehind
                     }
 
                     State.Thermos.Add(thermoStates);
+                }
+            }
+
+            if (Puzzle.Content.Constraints
+                    .FirstOrDefault(c => c.GetType() == typeof(KillerConstraint))
+                    is KillerConstraint killerConstraint &&
+                killerConstraint.Cages != null)
+            {
+                State.KillerCages = new List<KillerCageState>();
+
+                foreach (var cage in killerConstraint.Cages)
+                {
+                    var cageState = new KillerCageState
+                    {
+                        Sum = cage.Sum,
+                        Boxes = cage.Boxes.Copy()
+                    };
+                    State.KillerCages.Add(cageState);
                 }
             }
         }
@@ -131,6 +150,9 @@ namespace PuzzleBase.Web.CodeBehind
             if (!RegionsAreUnique())
                 isValid = false;
 
+            if (Puzzle.Content.Constraints != null && !ConstraintsAreMet())
+                isValid = false;
+
             if (!isValid)
                 return;
 
@@ -147,6 +169,10 @@ namespace PuzzleBase.Web.CodeBehind
                     State.Boxes[row, column].IsConflicted = false;
                     State.Boxes[row, column].IsBoundaryConflicted = false;
                 }
+
+            if (State.KillerCages != null)
+                foreach (var cage in State.KillerCages)
+                    cage.IsConflicted = false;
         }
 
         private bool RowsAreUnique()
@@ -281,6 +307,81 @@ namespace PuzzleBase.Web.CodeBehind
                 }
 
             return true;
+        }
+
+        private bool ConstraintsAreMet()
+        {
+            foreach (var constraint in Puzzle.Content.Constraints)
+            {
+                if (constraint is KillerConstraint && !KillerConstraintIsMet())
+                    return false;
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// All killer cages must contain unique digits within them, and the sum of placed digits cannot exceed the cage sum, if the sum is specified. If the cage is filled, the sum of all digits must equal the cage sum, if the sum is specified.
+        /// </summary>
+        private bool KillerConstraintIsMet()
+        {
+            var killerConstraintIsMet = true;
+
+            var seenDigits = new List<(int Row, int Column, int Value)>();
+            var conflictedCages = new HashSet<int>();
+            var boxesWithDuplicates = new HashSet<(int Row, int Column)>();
+
+            for (var i = 0; i < State.KillerCages.Count; ++i)
+            {
+                var cage = State.KillerCages[i];
+                var sum = 0;
+                var numberOfDigitsInTheCage = 0;
+
+                foreach (var box in cage.Boxes)
+                {
+                    var row = box / 10 - 1;
+                    var column = box % 10 - 1;
+                    var value = State.Boxes[row, column].Value;
+                    sum += value ?? 0;
+
+                    if (!value.HasValue)
+                        continue;
+
+                    ++numberOfDigitsInTheCage;
+
+                    var previousCopy = seenDigits.FirstOrDefault(d => d.Value == value.Value);
+                    if (previousCopy != default)
+                    {
+                        killerConstraintIsMet = false;
+                        conflictedCages.Add(i);
+                        boxesWithDuplicates.Add((row, column));
+                        boxesWithDuplicates.Add((previousCopy.Row, previousCopy.Column));
+                        continue;
+                    }
+
+                    seenDigits.Add((row, column, value.Value));
+                }
+
+                var cageIsFilled = numberOfDigitsInTheCage == cage.Boxes.Count;
+
+                if (cage.Sum.HasValue &&
+                    (sum > cage.Sum.Value || (sum < cage.Sum.Value && cageIsFilled)))
+                {
+                    killerConstraintIsMet = false;
+                    conflictedCages.Add(i);
+                }
+            }
+
+            foreach (var cageIndex in conflictedCages)
+            {
+                var cage = State.KillerCages[cageIndex];
+                cage.IsConflicted = true;
+            }
+
+            foreach (var (row, column) in boxesWithDuplicates)
+                State.Boxes[row, column].IsConflicted = true;
+
+            return killerConstraintIsMet;
         }
     }
 }

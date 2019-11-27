@@ -20,7 +20,7 @@
 
 
   <ItemGroup>
-    <None Include="wwwroot\scss\PuzzleTile.scss" />
+    <None Include="wwwroot\scss\_PuzzleTile.scss" />
   </ItemGroup>
 
 </Project>

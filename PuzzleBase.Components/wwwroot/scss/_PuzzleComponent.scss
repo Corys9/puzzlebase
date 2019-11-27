@@ -1,11 +1,5 @@
-﻿$box-size: calc(100vw / 27);
-$box-min-size: 48px;
-$box-color: rgb(253, 255, 231);
-
-$helper-value-color: rgb(96, 96, 96);
-$value-color: rgb(0, 98, 234);
-$given-color: black;
-$conflicted-color: red;
+﻿@import "Configuration";
+@import "KillerCage";
 
 .puzzle {
     position: absolute;

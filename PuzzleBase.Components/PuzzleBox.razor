@@ -23,7 +23,14 @@
          @boundaryNorth @boundaryEast @boundarySouth @boundaryWest
          @boundaryConflicted @conflicted" id="box-@ID"
          @onkeypress="(e) => Box_KeyPress(e)" tabindex="0">
+
         <div class="value">@Value</div>
+
+        @if (KillerCageBoundary != CageBitmask.None)
+        {
+            <KillerCage Elements="KillerCageBoundary" ShowSum="ShowKillerSum" Sum="KillerSum" IsConflicted="IsKillerCageConflicted" />
+        }
+
         <div class="helper-value">@HelperValue</div>
         <table class="helpers">
             <tbody>
@@ -41,7 +48,7 @@
                         }
                     </tr>
                 }
-                </tbody>
+            </tbody>
         </table>
     </div>
 </td>

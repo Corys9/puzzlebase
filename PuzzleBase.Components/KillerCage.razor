@@ -1,0 +1,60 @@
+﻿@inherits CodeBehind.KillerCageBase
+
+@{ 
+    var conflicted = IsConflicted ? "conflicted" : string.Empty;
+}
+
+<div class="killer-cage @conflicted">
+    @if ((Elements & Bitmasks.CageBitmask.VerticalTopLeft) != Bitmasks.CageBitmask.None)
+    {
+        <div class="vtl"></div>
+    }
+    @if ((Elements & Bitmasks.CageBitmask.VerticalTopRight) != Bitmasks.CageBitmask.None)
+    {
+        <div class="vtr"></div>
+    }
+    @if ((Elements & Bitmasks.CageBitmask.HorizontalTopLeft) != Bitmasks.CageBitmask.None)
+    {
+        <div class="htl"></div>
+    }
+    @if ((Elements & Bitmasks.CageBitmask.HorizontalTop) != Bitmasks.CageBitmask.None)
+    {
+        <div class="ht"></div>
+    }
+    @if ((Elements & Bitmasks.CageBitmask.HorizontalTopRight) != Bitmasks.CageBitmask.None)
+    {
+        <div class="htr"></div>
+    }
+    @if ((Elements & Bitmasks.CageBitmask.VerticalLeft) != Bitmasks.CageBitmask.None)
+    {
+        <div class="vl"></div>
+    }
+    @if ((Elements & Bitmasks.CageBitmask.VerticalRight) != Bitmasks.CageBitmask.None)
+    {
+        <div class="vr"></div>
+    }
+    @if ((Elements & Bitmasks.CageBitmask.HorizontalBottomLeft) != Bitmasks.CageBitmask.None)
+    {
+        <div class="hbl"></div>
+    }
+    @if ((Elements & Bitmasks.CageBitmask.HorizontalBottom) != Bitmasks.CageBitmask.None)
+    {
+        <div class="hb"></div>
+    }
+    @if ((Elements & Bitmasks.CageBitmask.HorizontalBottomRight) != Bitmasks.CageBitmask.None)
+    {
+        <div class="hbr"></div>
+    }
+    @if ((Elements & Bitmasks.CageBitmask.VerticalBottomLeft) != Bitmasks.CageBitmask.None)
+    {
+        <div class="vbl"></div>
+    }
+    @if ((Elements & Bitmasks.CageBitmask.VerticalBottomRight) != Bitmasks.CageBitmask.None)
+    {
+        <div class="vbr"></div>
+    }
+    @if (ShowSum)
+    {
+        <div class="sum">@Sum</div>
+    }
+</div>

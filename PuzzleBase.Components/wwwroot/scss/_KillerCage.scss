@@ -1,0 +1,132 @@
+﻿@import "Configuration";
+
+.puzzle > .puzzle-table > tbody > tr > td > .box {
+    > .killer-cage {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+
+        .sum {
+            position: absolute;
+            top: 0;
+            left: 0;
+            font-family: Arial;
+            font-size: calc(#{$box-size} * 0.25);
+            font-weight: bold;
+            line-height: normal;
+            color: whitesmoke;
+            background-color: black;
+            border-bottom-right-radius: 10px;
+            height: auto;
+            padding: 2px;
+        }
+
+        .vtl {
+            position: absolute;
+            top: 0;
+            height: $killer-cage-padding;
+            left: $killer-cage-padding;
+            border-left: 2px dotted black;
+        }
+
+        .vtr {
+            position: absolute;
+            top: 0;
+            height: $killer-cage-padding;
+            right: $killer-cage-padding;
+            border-left: 2px dotted black;
+        }
+
+        .htl {
+            position: absolute;
+            top: $killer-cage-padding;
+            width: $killer-cage-padding;
+            left: 0;
+            border-top: 2px dotted black;
+        }
+
+        .ht {
+            position: absolute;
+            top: $killer-cage-padding;
+            left: $killer-cage-padding;
+            right: $killer-cage-padding;
+            border-top: 2px dotted black;
+        }
+
+        .htr {
+            position: absolute;
+            top: $killer-cage-padding;
+            width: $killer-cage-padding;
+            right: 0;
+            border-top: 2px dotted black;
+        }
+
+        .vl {
+            position: absolute;
+            top: $killer-cage-padding;
+            bottom: $killer-cage-padding;
+            left: $killer-cage-padding;
+            border-left: 2px dotted black;
+        }
+
+        .vr {
+            position: absolute;
+            top: $killer-cage-padding;
+            bottom: $killer-cage-padding;
+            right: $killer-cage-padding;
+            border-left: 2px dotted black;
+        }
+
+        .hbl {
+            position: absolute;
+            bottom: $killer-cage-padding;
+            width: $killer-cage-padding;
+            left: 0;
+            border-top: 2px dotted black;
+        }
+
+        .hb {
+            position: absolute;
+            bottom: $killer-cage-padding;
+            left: $killer-cage-padding;
+            right: $killer-cage-padding;
+            border-top: 2px dotted black;
+        }
+
+        .hbr {
+            position: absolute;
+            bottom: $killer-cage-padding;
+            width: $killer-cage-padding;
+            right: 0;
+            border-top: 2px dotted black;
+        }
+
+        .vbl {
+            position: absolute;
+            bottom: 0;
+            left: $killer-cage-padding;
+            height: $killer-cage-padding;
+            border-left: 2px dotted black;
+        }
+
+        .vbr {
+            position: absolute;
+            bottom: 0;
+            right: $killer-cage-padding;
+            height: $killer-cage-padding;
+            border-left: 2px dotted black;
+        }
+
+        &.conflicted {
+            .sum {
+                color: $conflicted-color;
+            }
+
+            .vtl, .vtr, .htl, .ht, .htr, .vl, .vr, .hbl, .hb, .hbr, .vbl, .vbr {
+                border-color: $conflicted-color !important;
+            }
+        }
+    }
+}
