@@ -6,8 +6,18 @@
 
 <div class="main">
     <div class="top-row px-4">
-        <a href="#" target="_blank">Sign Up</a>
-        <a href="#" target="_blank">Sign In</a>
+        <AuthorizeView>
+            <Authorized>
+                <div>Welcome, @context.User.Identity.Name!</div>
+                <form method="post" action="Identity/Account/SignOut">
+                    <button type="submit" class="nav-link btn btn-link">Sign out</button>
+                </form>
+            </Authorized>
+            <NotAuthorized>
+                <a href="Identity/Account/Register">Register</a>
+                <a href="Identity/Account/Login">Sign in</a>
+            </NotAuthorized>
+        </AuthorizeView>
     </div>
 
     <div class="content px-4">

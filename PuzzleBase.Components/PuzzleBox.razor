@@ -2,19 +2,19 @@
 @using Bitmasks
 
 @{
-    var given = IsGiven ? "given" : string.Empty;
+    var given = IsGiven ? "given" : null;
 
     var boundaryNorth = (Boundary & BoundaryBitmask.North) != BoundaryBitmask.None
-        ? "boundary-north" : string.Empty;
+        ? "boundary-north" : null;
     var boundaryEast = (Boundary & BoundaryBitmask.East) != BoundaryBitmask.None
-        ? "boundary-east" : string.Empty;
+        ? "boundary-east" : null;
     var boundarySouth = (Boundary & BoundaryBitmask.South) != BoundaryBitmask.None
-        ? "boundary-south" : string.Empty;
+        ? "boundary-south" : null;
     var boundaryWest = (Boundary & BoundaryBitmask.West) != BoundaryBitmask.None
-        ? "boundary-west" : string.Empty;
+        ? "boundary-west" : null;
 
-    var conflicted = IsConflicted ? "conflicted" : string.Empty;
-    var boundaryConflicted = IsBoundaryConflicted ? "boundary-conflicted" : string.Empty;
+    var conflicted = IsConflicted ? "conflicted" : null;
+    var boundaryConflicted = IsBoundaryConflicted ? "boundary-conflicted" : null;
 }
 
 <td>
