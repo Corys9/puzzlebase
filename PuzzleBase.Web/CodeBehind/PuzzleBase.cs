@@ -85,6 +85,8 @@ namespace PuzzleBase.Web.CodeBehind
                 }
             }
 
+            State.KillerCages = null;
+
             if (Puzzle.Content.Constraints == null)
                 return;
 
