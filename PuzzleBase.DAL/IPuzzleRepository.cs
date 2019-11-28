@@ -1,4 +1,5 @@
 ﻿using PuzzleBase.Models;
+using PuzzleBase.Models.ViewModels;
 using System.Collections.Generic;
 
 namespace PuzzleBase.DAL
@@ -8,5 +9,7 @@ namespace PuzzleBase.DAL
         List<Puzzle> GetPuzzleList();
 
         Puzzle GetPuzzleByID(int puzzleID);
+
+        int AddPuzzle(PuzzleForm puzzle);
     }
 }

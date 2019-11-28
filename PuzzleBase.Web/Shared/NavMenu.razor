@@ -11,6 +11,13 @@
             <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
                 <span class="oi oi-home" aria-hidden="true"></span> Home
             </NavLink>
+            <AuthorizeView>
+                <Authorized>
+                    <NavLink class="nav-link" href="/editor" Match="NavLinkMatch.All">
+                        <span class="oi oi-pencil" aria-hidden="true"></span> Editor
+                    </NavLink>
+                </Authorized>
+            </AuthorizeView>
         </li>
     </ul>
 </div>

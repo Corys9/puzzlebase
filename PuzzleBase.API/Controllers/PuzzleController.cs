@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using PuzzleBase.DAL;
 using PuzzleBase.Models;
+using PuzzleBase.Models.ViewModels;
 
 namespace PuzzleBase.API.Controllers
 {
@@ -27,5 +28,18 @@ namespace PuzzleBase.API.Controllers
         /// <returns>Puzzle object</returns>
         [HttpGet, Route("{puzzleID:int}")]
         public Puzzle GetPuzzleByID(int puzzleID) => PuzzleRepository.GetPuzzleByID(puzzleID);
+
+        /// <summary>
+        /// Add a puzzle.
+        /// </summary>
+        /// <param name="puzzle">Model describing the puzzle</param>
+        /// <returns>
+        /// Status code:
+        ///     0 = successful,
+        ///     1 = error,
+        ///     2 = duplicate
+        /// </returns>
+        [HttpPost]
+        public int AddPuzzle(PuzzleForm puzzleForm) => PuzzleRepository.AddPuzzle(puzzleForm);
     }
 }

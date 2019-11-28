@@ -5,6 +5,8 @@ using Microsoft.EntityFrameworkCore;
 using PuzzleBase.Models;
 
 using Context = PuzzleBase.DAL.DB.PuzzlebaseContext;
+using System;
+using PuzzleBase.Models.ViewModels;
 
 namespace PuzzleBase.DAL
 {
@@ -60,6 +62,39 @@ namespace PuzzleBase.DAL
                          };
 
             return puzzle.FirstOrDefault();
+        }
+
+        public int AddPuzzle(PuzzleForm puzzle)
+        {
+            using var db = new Context();
+
+            var existingPuzzle = from p in db.Puzzle
+                                 where p.Content == puzzle.Content
+                                 select p;
+
+            if (existingPuzzle.FirstOrDefault() != null)
+                return 2; // duplicate
+
+            try
+            {
+                var puzzleEntity = new DB.Puzzle
+                {
+                    Content = puzzle.Content,
+                    CreatedTs = DateTime.UtcNow,
+                    Difficulty = puzzle.Difficulty == 0 ? null : (int?)puzzle.Difficulty,
+                    IsActive = true,
+                    OwnerId = puzzle.UserID
+                };
+
+                db.Puzzle.Add(puzzleEntity);
+                db.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                return 1; // error
+            }
+
+            return 0;
         }
     }
 }
