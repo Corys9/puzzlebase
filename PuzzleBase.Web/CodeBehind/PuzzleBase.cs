@@ -364,6 +364,8 @@ namespace PuzzleBase.Web.CodeBehind
                     seenDigits.Add((row, column, value.Value));
                 }
 
+                seenDigits = new List<(int Row, int Column, int Value)>();
+
                 var cageIsFilled = numberOfDigitsInTheCage == cage.Boxes.Count;
 
                 if (cage.Sum.HasValue &&
