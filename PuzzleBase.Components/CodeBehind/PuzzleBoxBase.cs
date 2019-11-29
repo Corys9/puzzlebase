@@ -193,7 +193,7 @@ namespace PuzzleBase.Components.CodeBehind
             if (IsGiven)
                 return;
 
-            if (Value.HasValue)
+            if (Value.HasValue && State.InputMode != InputMode.Color)
             {
                 State.Boxes[Row, Column].Value = null;
                 Helper_MouseOver(digit);
