@@ -50,7 +50,9 @@ namespace PuzzleBase.Web.CodeBehind
                     State.Boxes[row, column] = new BoxState
                     {
                         Value = value,
-                        IsGiven = value.HasValue
+                        IsGiven = value.HasValue,
+                        CornerHelpers = Enumerable.Repeat(false, 9).ToList(),
+                        CentralValue = string.Empty
                     };
                     State.Boxes[row, column].OnValueChanged += Validate;
                 }

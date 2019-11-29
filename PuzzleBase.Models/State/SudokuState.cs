@@ -15,5 +15,7 @@ namespace PuzzleBase.Models.State
         public List<KillerCageState> KillerCages { get; set; }
 
         public (int Row, int Column)? ActiveBox { get; set; }
+
+        public InputMode InputMode { get; set; }
     }
 }

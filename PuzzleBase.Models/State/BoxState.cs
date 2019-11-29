@@ -51,6 +51,12 @@ namespace PuzzleBase.Models.State
             }
         }
 
+        public List<bool> CornerHelpers { get; set; }
+
+        public string CentralValue { get; set; }
+
+        public int ColorIndex { get; set; }
+
         public event Action OnStateChanged;
 
         public event Action OnValueChanged;

@@ -1,0 +1,42 @@
+﻿@inherits CodeBehind.PuzzleControlsBase
+
+@using Models.State;
+
+@{ 
+    var inputMainActive = State.InputMode == InputMode.Main ? "active" : null;
+    var inputCornerActive = State.InputMode == InputMode.Corner ? "active" : null;
+    var inputCenterActive = State.InputMode == InputMode.Center ? "active" : null;
+    var inputColorActive = State.InputMode == InputMode.Color ? "active" : null;
+}
+
+<div class="controls">
+    <div class="btn-group-vertical btn-group-toggle input-mode" data-toggle="buttons">
+        <label class="btn btn-secondary @inputMainActive" @onclick="() => SetInputMethod(InputMode.Main)">
+            <input type="radio" name="optionsInput" id="chInputMain" autocomplete="off"> Main
+        </label>
+        <label class="btn btn-secondary @inputCornerActive" @onclick="() => SetInputMethod(InputMode.Corner)">
+            <input type="radio" name="optionsInput" id="chInputCorner" autocomplete="off"> Corner
+        </label>
+        <label class="btn btn-secondary @inputCenterActive" @onclick="() => SetInputMethod(InputMode.Center)">
+            <input type="radio" name="optionsInput" id="chInputCenter" autocomplete="off"> Center
+        </label>
+        <label class="btn btn-secondary @inputColorActive" @onclick="() => SetInputMethod(InputMode.Color)">
+            <input type="radio" name="optionsInput" id="chInputColor" autocomplete="off"> Color
+        </label>
+    </div>
+
+    <div class="btn-group btn-group-toggle input-mode" data-toggle="buttons">
+        <label class="btn btn-secondary @inputMainActive" @onclick="() => SetInputMethod(InputMode.Main)">
+            <input type="radio" name="optionsInput" id="chInputMain" autocomplete="off"> Main
+        </label>
+        <label class="btn btn-secondary @inputCornerActive" @onclick="() => SetInputMethod(InputMode.Corner)">
+            <input type="radio" name="optionsInput" id="chInputCorner" autocomplete="off"> Corner
+        </label>
+        <label class="btn btn-secondary @inputCenterActive" @onclick="() => SetInputMethod(InputMode.Center)">
+            <input type="radio" name="optionsInput" id="chInputCenter" autocomplete="off"> Center
+        </label>
+        <label class="btn btn-secondary @inputColorActive" @onclick="() => SetInputMethod(InputMode.Color)">
+            <input type="radio" name="optionsInput" id="chInputColor" autocomplete="off"> Color
+        </label>
+    </div>
+</div>

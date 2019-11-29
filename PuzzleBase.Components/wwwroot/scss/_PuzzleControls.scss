@@ -1,0 +1,45 @@
+﻿.controls {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 100px;
+
+    > .input-mode {
+        cursor: pointer;
+    }
+}
+
+@media (max-width: 1199.98px) {
+    .controls {
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100%;
+        flex-direction: row;
+    }
+
+    .controls > .btn-group {
+        display: block;
+    }
+
+    .controls > .btn-group-vertical {
+        display: none;
+    }
+}
+
+@media (min-width: 1200px) {
+    .controls {
+        right: 20px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: auto;
+    }
+
+    .controls > .btn-group {
+        display: none;
+    }
+    .controls > .btn-group-vertical {
+        display: block;
+    }
+}

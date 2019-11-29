@@ -26,6 +26,10 @@ namespace PuzzleBase.Components.CodeBehind
 
         protected int? HelperValue { get; set; }
 
+        protected int HelperColorIndex { get; set; }
+
+        protected string CentralValue => State.Boxes[Row, Column].CentralValue;
+
         protected int ID => (Row + 1) * 10 + Column + 1;
 
         protected int? Value => State.Boxes[Row, Column].Value;
@@ -38,6 +42,12 @@ namespace PuzzleBase.Components.CodeBehind
 
         protected bool IsGiven => State.Boxes[Row, Column].IsGiven;
 
+        protected List<bool> CornerHelpers => State.Boxes[Row, Column].CornerHelpers;
+
+        protected List<bool> CornerHelperHasFocus { get; set; }
+
+        protected int ColorIndex => State.Boxes[Row, Column].ColorIndex;
+
         [Inject]
         public SudokuState State { get; private set; }
 
@@ -47,6 +57,7 @@ namespace PuzzleBase.Components.CodeBehind
             ConstructKillerCageBoundaries();
 
             State.Boxes[Row, Column].OnStateChanged += base.StateHasChanged;
+            CornerHelperHasFocus = Enumerable.Repeat(false, 9).ToList();
 
             var cageThisBoxBelongTo = State.KillerCages?.FirstOrDefault(c => c.Boxes.Contains(ID));
             if (cageThisBoxBelongTo != null)
@@ -139,15 +150,31 @@ namespace PuzzleBase.Components.CodeBehind
 
         protected void Helper_MouseOver(int digit)
         {
-            if (!Value.HasValue)
-                HelperValue = digit;
-
             State.ActiveBox = (Row, Column);
+
+            if (State.InputMode == InputMode.Color)
+                HelperColorIndex = digit;
+
+            if (Value.HasValue)
+                return;
+
+            switch (State.InputMode)
+            {
+                case InputMode.Main:
+                    HelperValue = digit;
+                    break;
+                case InputMode.Corner:
+                case InputMode.Center:
+                    CornerHelperHasFocus[digit - 1] = true;
+                    break;
+            }
         }
 
-        protected void Helper_MouseOut()
+        protected void Helper_MouseOut(int digit)
         {
             HelperValue = null;
+            CornerHelperHasFocus[digit - 1] = false;
+            HelperColorIndex = 0;
 
             if (State.ActiveBox == (Row, Column))
                 State.ActiveBox = null;
@@ -155,6 +182,14 @@ namespace PuzzleBase.Components.CodeBehind
 
         protected void Helper_Click(int digit)
         {
+            if (State.InputMode == InputMode.Color)
+            {
+                if (State.Boxes[Row, Column].ColorIndex != digit)
+                    State.Boxes[Row, Column].ColorIndex = digit;
+                else
+                    State.Boxes[Row, Column].ColorIndex = 0;
+            }
+
             if (IsGiven)
                 return;
 
@@ -166,7 +201,29 @@ namespace PuzzleBase.Components.CodeBehind
             }
 
             HelperValue = null;
-            State.Boxes[Row, Column].Value = digit;
+
+            switch (State.InputMode)
+            {
+                case InputMode.Main:
+                    State.Boxes[Row, Column].Value = digit;
+                    State.Boxes[Row, Column].CornerHelpers = Enumerable.Repeat(false, 9).ToList();
+                    State.Boxes[Row, Column].CentralValue = string.Empty;
+                    break;
+                case InputMode.Corner:
+                    State.Boxes[Row, Column].CornerHelpers[digit - 1] = !State.Boxes[Row, Column].CornerHelpers[digit - 1];
+                    break;
+                case InputMode.Center:
+                    if (State.Boxes[Row, Column].CentralValue.Contains(digit.ToString()))
+                        State.Boxes[Row, Column].CentralValue = State.Boxes[Row, Column].CentralValue.Replace(digit.ToString(), string.Empty);
+                    else
+                    {
+                        var digits = State.Boxes[Row, Column].CentralValue.Split().ToList();
+                        digits.Add(digit.ToString());
+                        digits.Sort();
+                        State.Boxes[Row, Column].CentralValue = string.Join(separator: null, digits);
+                    }
+                    break;
+            }
         }
 
         public void Box_KeyPress(KeyboardEventArgs e)

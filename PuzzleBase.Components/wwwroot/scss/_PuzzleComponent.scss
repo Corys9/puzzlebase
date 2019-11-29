@@ -1,5 +1,6 @@
 ﻿@import "Configuration";
 @import "KillerCage";
+@import "PuzzleBox";
 
 .puzzle {
     position: absolute;
@@ -17,107 +18,6 @@
             margin: 0;
             width: $box-size;
             height: $box-size;
-
-            > .box {
-                width: 100%;
-                height: 100%;
-                min-width: $box-min-size;
-                min-height: $box-min-size;
-                position: relative;
-                background-color: $box-color;
-                border: 1px solid black;
-                cursor: pointer;
-                transition: filter 0.1s ease, box-shadow 0.1s ease;
-
-                > .value,
-                > .helper-value {
-                    display: flex;
-                    justify-content: center;
-                    align-content: center;
-                    flex-direction: column;
-                    font-size: calc(#{$box-min-size} + (#{$box-size - $box-min-size}) * 0.5);
-                    position: absolute;
-                    top: 0;
-                    left: 0;
-                    width: 100%;
-                    height: 100%;
-                    text-align: center;
-                }
-
-                > .value {
-                    color: $value-color;
-                }
-
-                > .helper-value {
-                    color: $helper-value-color;
-                }
-
-                > .helpers {
-                    position: absolute;
-                    top: 0;
-                    left: 0;
-                    width: 100%;
-                    height: 100%;
-                    border-collapse: collapse;
-                }
-
-                &.given {
-                    &:not(.conflicted) {
-                        > .value {
-                            color: $given-color;
-                        }
-                    }
-
-                    &.conflicted {
-                        font-weight: bold;
-                    }
-                }
-
-                &.conflicted {
-                    > .value {
-                        color: $conflicted-color;
-                    }
-                }
-
-                &.boundary-north {
-                    border-top: 2px solid black;
-                }
-
-                &.boundary-east {
-                    border-right: 2px solid black;
-                }
-
-                &.boundary-south {
-                    border-bottom: 2px solid black;
-                }
-
-                &.boundary-west {
-                    border-left: 2px solid black;
-                }
-
-                &.boundary-conflicted {
-                    &.boundary-north {
-                        border-top: 2px solid $conflicted-color;
-                    }
-
-                    &.boundary-east {
-                        border-right: 2px solid $conflicted-color;
-                    }
-
-                    &.boundary-south {
-                        border-bottom: 2px solid $conflicted-color;
-                    }
-
-                    &.boundary-west {
-                        border-left: 2px solid $conflicted-color;
-                    }
-                }
-
-                &:hover {
-                    filter: brightness(1.25);
-                    box-shadow: inset 0 0 2px 1px black;
-                }
-            }
         }
     }
 
