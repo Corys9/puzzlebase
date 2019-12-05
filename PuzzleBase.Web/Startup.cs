@@ -54,8 +54,6 @@ namespace PuzzleBase.Web
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            app.UseHttpsRedirection();
-
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -65,6 +63,8 @@ namespace PuzzleBase.Web
                 app.UseExceptionHandler("/Error");
                 app.UseHsts();
             }
+
+            app.UseHttpsRedirection();
 
             app.UseWebOptimizer();
             app.UseStaticFiles();

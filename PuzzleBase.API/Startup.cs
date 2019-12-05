@@ -46,8 +46,8 @@ namespace PuzzleBase.API
             if (env.IsDevelopment())
                 app.UseDeveloperExceptionPage();
 
-            app.UseHttpsRedirection();
             app.UseHsts();
+            app.UseHttpsRedirection();
 
             app.UseRouting();
 
