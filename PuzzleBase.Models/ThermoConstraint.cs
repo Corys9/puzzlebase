@@ -9,7 +9,7 @@ namespace PuzzleBase.Models
         /// <summary>
         /// Note: first element of every thermo list is the bulb.
         /// </summary>
-        [JsonConverter(typeof(ThermoConverter))]
+        [JsonConverter(typeof(ThermoConverter)), JsonProperty("thermos")]
         public List<List<(int Row, int Column, string Type)>> Thermos { get; set; }
     }
 }
