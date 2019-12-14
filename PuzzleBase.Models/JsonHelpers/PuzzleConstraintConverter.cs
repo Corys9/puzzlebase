@@ -38,7 +38,7 @@ namespace PuzzleBase.Models.JsonHelpers
             {
                 contract.Converter = null;
             }
-         
+
             var jTokenReader = new JTokenReader(jObject);
             var result = serializer.Deserialize(jTokenReader, type);
 

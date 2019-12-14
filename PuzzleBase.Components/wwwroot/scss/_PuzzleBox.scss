@@ -14,10 +14,8 @@
 
         > .value,
         > .helper-value {
-            display: flex;
             justify-content: center;
             align-content: center;
-            flex-direction: column;
             font-size: calc(#{$box-min-size} + (#{$box-size - $box-min-size}) * 0.5);
             position: absolute;
             top: 0;
@@ -32,6 +30,8 @@
         }
 
         > .helper-value {
+            display: flex;
+            flex-direction: column;
             color: $helper-value-color;
         }
 
@@ -61,9 +61,11 @@
 
             > tbody > tr {
                 height: calc(100% / 3);
+                max-height: calc(100% / 3) !important;
 
                 > td.helper {
                     height: calc(100% / 3);
+                    max-height: calc(100% / 3) !important;
                     position: relative;
                     display: table-cell;
 
